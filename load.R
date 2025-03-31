@@ -3,13 +3,13 @@ library(duckdb)
 library(jsonlite)
 library(dplyr)
 
-path_to_csv <- '/data/temp/chop_pcornet_v56/'
-path_to_db <- '/data/temp/chop_pcornet_v56.duckdb'
-
-
 all_configs <- jsonlite::read_json('configs.json')
-column_configs <- all_configs$columns
-read_configs <- all_configs
+
+path_to_csv <- all_configs$csv_dir_path
+path_to_db <- all_configs$duckdb_path
+
+column_configs <- all_configs$csv$columns
+read_configs <- all_configs$csv
 read_configs$columns <- NULL
 
 con <- dbConnect(duckdb::duckdb(), dbdir = path_to_db)
@@ -21,7 +21,7 @@ read_configs_str <- paste(
   collapse = ", "
 )
 
-for (table_name in c('demographic', 'condition', 'diagnosis', 'encounter') ){
+for (table_name in all_configs$cdm_tables_to_load ){
   print(sprintf("Loading Table: %s", table_name))
   table_column_config <- column_configs[[table_name]]
   file_path <- file.path(path_to_csv, paste0(table_name, '.csv'))
