@@ -49,8 +49,10 @@ for (table_name in all_configs$cdm_tables_to_load ){
                      %s, 
                      columns=%s
                  );", table_name, table_name, file_path, read_configs_str, table_column_config_str)
-  print(sql)
+  #print(sql)
   dbExecute(con, sql)
+  row_count <- dbGetQuery(con, sprintf('SELECT COUNT(*) FROM %s ;', table_name))
+  print(paste0(table_name, ' Loaded. Row Count: ', row_count))
 }
 
 dbDisconnect(con)

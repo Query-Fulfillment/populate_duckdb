@@ -20,5 +20,7 @@ for (table_name in cdm_tables_to_load ) {
                  ", table_name, table_name, file_pattern)
   print(paste0('Loading ', table_name , '...'))
   dbExecute(con, sql)
+  row_count <- dbGetQuery(con, sprintf('SELECT COUNT(*) FROM %s ;', table_name))
+  print(paste0(table_name, ' Loaded. Row Count: ', row_count))
 }
 dbDisconnect(con)
