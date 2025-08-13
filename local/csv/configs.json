@@ -1,6 +1,6 @@
 {
-    "csv_dir_path": "/data/temp/chop_pcornet_v56/",
-    "duckdb_path": "/data/temp/chop_pcornet_v56.duckdb",
+    "csv_dir_path": "path/to/csv",
+    "duckdb_path": "desired/path/to/pcornet_cdm.duckdb",
     "cdm_tables_to_load":[
         "condition", 
         "death", "death_cause", "demographic", "diagnosis", "dispensing",

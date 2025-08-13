@@ -28,7 +28,7 @@ for (table_name in all_configs$cdm_tables_to_load ){
   # get header column from csv
   header_line <- readLines(file_path, n = 1)
   header_column_names <- strsplit(header_line, coalesce(read_configs[['delim']], ','))[[1]]
-  header_column_names <- gsub(coalesce(read_configs[['quote']], '"'), '', column_names)    # remove optional quotes
+  header_column_names <- tolower(gsub(coalesce(read_configs[['quote']], '"'), '', header_column_names))    # remove optional quotes
   # get column from config
   config_column_names <- names(table_column_config)
   # compare column
