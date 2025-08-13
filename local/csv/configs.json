@@ -13,6 +13,7 @@
         "pcornet_trial", "prescribing", "private_address_geocode", "private_address_history", "private_demographic", "pro_cm", "procedures", "provider",
         "version_history", "vital"
     ],
+    "column_case" : "lower",
     "csv": {
         "escape": "\"",
         "delim": ",",
