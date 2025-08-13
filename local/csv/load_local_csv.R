@@ -11,6 +11,17 @@ path_to_db <- all_configs$duckdb_path
 column_configs <- all_configs$csv$columns
 read_configs <- all_configs$csv
 read_configs$columns <- NULL
+column_case <- all_configs$column_case
+
+if(column_case == "upper") {
+  names(column_configs) <- toupper(names(column_configs))
+
+column_configs <- lapply(column_configs, function(x) {
+  if (is.list(x)) names(x) <- toupper(names(x))
+  x
+})
+  all_configs$cdm_tables_to_load  <- toupper(all_configs$cdm_tables_to_load )
+}
 
 con <- dbConnect(duckdb::duckdb(), dbdir = path_to_db)
 
@@ -22,13 +33,14 @@ read_configs_str <- paste(
 )
 
 for (table_name in all_configs$cdm_tables_to_load ){
+
   print(sprintf("Loading Table: %s", table_name))
   table_column_config <- column_configs[[table_name]]
   file_path <- file.path(path_to_csv, paste0(table_name, '.csv'))
   # get header column from csv
   header_line <- readLines(file_path, n = 1)
   header_column_names <- strsplit(header_line, coalesce(read_configs[['delim']], ','))[[1]]
-  header_column_names <- tolower(gsub(coalesce(read_configs[['quote']], '"'), '', header_column_names))    # remove optional quotes
+  header_column_names <- gsub(coalesce(read_configs[['quote']], '"'), '', header_column_names)    # remove optional quotes
   # get column from config
   config_column_names <- names(table_column_config)
   # compare column
