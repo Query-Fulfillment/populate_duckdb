@@ -39,7 +39,7 @@ for (table_name in all_configs$cdm_tables_to_load ){
   file_path <- file.path(path_to_csv, paste0(table_name, '.csv'))
   # get header column from csv
   header_line <- readLines(file_path, n = 1)
-  header_column_names <- strsplit(header_line, coalesce(read_configs[['delim']], ','))[[1]]
+  header_column_names <- strsplit(header_line, coalesce(read_configs[['delim']], ','), fixed=T)[[1]]
   header_column_names <- gsub(coalesce(read_configs[['quote']], '"'), '', header_column_names)    # remove optional quotes
   # get column from config
   config_column_names <- names(table_column_config)
