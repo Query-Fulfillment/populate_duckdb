@@ -468,7 +468,6 @@
                 "rx_prn_flag": "VARCHAR",
                 "rx_providerid": "VARCHAR",
                 "rx_quantity": "DOUBLE",
-                "rx_quantity_unit": "VARCHAR",
                 "rx_refills": "DOUBLE",
                 "rx_route": "VARCHAR",
                 "rx_source": "VARCHAR",
